@@ -1,0 +1,51 @@
+GET http://localhost:8080/users
+Authorization: Basic admin@miu.edu root
+
+###
+
+GET http://localhost:8080/books
+Authorization: Basic admin@miu.edu root
+
+###
+
+POST http://localhost:8080/books
+Authorization: Basic emmanuel@miu.edu 123456
+Content-Type: application/json
+
+{
+  "title": "Test-Driven Development by example",
+  "isbn": "96162038546",
+  "author": "Michael Kent",
+  "publishedDate": "2022-03-14"
+
+}
+
+###
+
+GET http://localhost:8080/books/2
+Authorization: Basic admin@miu.edu root
+
+###
+
+POST http://localhost:8080/books
+Authorization: Basic admin@miu.edu root
+Content-Type: application/json
+
+{
+  "title": "Test-Driven Development by example",
+  "isbn": "96162038546",
+  "author": "Michael Kent",
+  "publishedDate": "2022-03-14"
+
+}
+
+###
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "email":"emmanuel@miu.edu",
+  "password":"123456"
+}
+
+###
