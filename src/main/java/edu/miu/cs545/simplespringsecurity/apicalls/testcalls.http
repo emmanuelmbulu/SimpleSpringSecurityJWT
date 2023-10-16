@@ -6,24 +6,43 @@ Authorization: Basic admin@miu.edu root
 GET http://localhost:8080/books
 Authorization: Basic admin@miu.edu root
 
+
+###
+GET http://localhost:8080/books
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbW1hbnVlbEBtaXUuZWR1IiwiaXNzIjoiQ1M1NDUgQVNTSUdOIEpXVCIsImlhdCI6MTY5NzQzNDE2NSwiZXhwIjoxNjk3NDM3NzY1fQ.-_cbxkjrDR9uRf-vlzI6wzqo-BMnDIyvD97zevY5sVWWSodY-Xo_19X5CcwauSZftLQXybZxV-4_WHXKMXH_qA
+
 ###
 
 POST http://localhost:8080/books
-Authorization: Basic emmanuel@miu.edu 123456
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbW1hbnVlbEBtaXUuZWR1IiwiaXNzIjoiQ1M1NDUgQVNTSUdOIEpXVCIsImlhdCI6MTY5NzQzNDE2NSwiZXhwIjoxNjk3NDM3NzY1fQ.-_cbxkjrDR9uRf-vlzI6wzqo-BMnDIyvD97zevY5sVWWSodY-Xo_19X5CcwauSZftLQXybZxV-4_WHXKMXH_qA
 Content-Type: application/json
 
 {
-  "title": "Test-Driven Development by example",
-  "isbn": "96162038546",
-  "author": "Michael Kent",
-  "publishedDate": "2022-03-14"
+  "title": "Algorithms and Data Structures",
+  "isbn": "90128200201",
+  "author": "Paul Smith",
+  "publishedDate": "2009-06-11"
+
+}
+
+###
+
+POST http://localhost:8080/books
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtaXUuZWR1IiwiaXNzIjoiQ1M1NDUgQVNTSUdOIEpXVCIsImlhdCI6MTY5NzQzNDM5NCwiZXhwIjoxNjk3NDM3OTk0fQ.nOhZrQaHoX81x2VZJPHhyQ1qyQIP5L4wPO0yA3iuJDnAEVVRsnLn5Zwo2Jk7CUqawNaszewQA0Y6IbcFSCIG2A
+Content-Type: application/json
+
+{
+  "title": "Algorithms and Data Structures",
+  "isbn": "90128200201",
+  "author": "Paul Smith",
+  "publishedDate": "2009-06-11"
 
 }
 
 ###
 
 GET http://localhost:8080/books/2
-Authorization: Basic admin@miu.edu root
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBtaXUuZWR1IiwiaXNzIjoiQ1M1NDUgQVNTSUdOIEpXVCIsImlhdCI6MTY5NzQzNDM5NCwiZXhwIjoxNjk3NDM3OTk0fQ.nOhZrQaHoX81x2VZJPHhyQ1qyQIP5L4wPO0yA3iuJDnAEVVRsnLn5Zwo2Jk7CUqawNaszewQA0Y6IbcFSCIG2A
 
 ###
 
@@ -49,3 +68,10 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email":"admin@miu.edu",
+  "password":"root"
+}

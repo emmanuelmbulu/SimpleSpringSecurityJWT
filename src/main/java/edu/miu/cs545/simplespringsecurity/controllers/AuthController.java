@@ -2,10 +2,12 @@ package edu.miu.cs545.simplespringsecurity.controllers;
 
 import edu.miu.cs545.simplespringsecurity.model.User;
 import edu.miu.cs545.simplespringsecurity.services.UserService;
+import edu.miu.cs545.simplespringsecurity.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,21 +19,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
     private final AuthenticationManager authenticationManager;
+    final private JwtUtil _jwtUtil;
     final private UserService _service;
 
-    public AuthController(AuthenticationManager manager,
+    public AuthController(AuthenticationManager manager, JwtUtil jwtUtil,
                           @Qualifier("userServiceImplementation") UserService service) {
         this.authenticationManager = manager;
         this._service = service;
+        this._jwtUtil = jwtUtil;
     }
+
     @PostMapping("/login")
-    public Authentication getLogin(@RequestBody User user) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        user.getUsername(), user.getPassword()
-                )
-        );
-        return authentication;
+    public ResponseEntity<?> getLogin(@RequestBody User user) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            user.getEmail(), user.getPassword()
+                    )
+            );
+            user = (User) authentication.getPrincipal();
+            final String _token = _jwtUtil.generateAccessToken(user);
+
+            final String emailAddress = user.getEmail();
+            return new ResponseEntity<>(new Object(){
+                public String email= emailAddress;
+                public String token = _token;
+            }, HttpStatus.OK);
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
         /*UserDetails details = (UserDetails) authentication.getPrincipal();
         return details;*/
     }
